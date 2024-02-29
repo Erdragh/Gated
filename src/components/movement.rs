@@ -1,4 +1,5 @@
 use std::fmt::{Display, Formatter};
+
 use bevy::prelude::Component;
 
 #[derive(Component)]
@@ -8,7 +9,7 @@ pub struct Mass(pub f32);
 pub struct Speed {
     pub x: f32,
     pub y: f32,
-    pub base: f32
+    pub base: f32,
 }
 
 impl Display for Speed {
@@ -18,7 +19,14 @@ impl Display for Speed {
 }
 
 #[derive(Component)]
+pub struct TurnBasedMovement {
+    pub accu: f32,
+    pub base: f32,
+}
+
+#[derive(Component)]
 pub struct MovementTarget {
     pub x: f32,
     pub y: f32,
+    pub active: bool,
 }

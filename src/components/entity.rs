@@ -8,7 +8,7 @@ use bevy::utils::Uuid;
 pub struct Character {
     pub id: Uuid,
     pub name: String,
-    pub level: u8
+    pub level: u8,
 }
 
 #[derive(Component)]
@@ -16,7 +16,7 @@ pub struct PartyMember;
 
 pub struct HealthModifier {
     pub id: Uuid,
-    pub amount: u16
+    pub amount: u16,
 }
 
 #[derive(Component)]
@@ -79,7 +79,7 @@ impl Health {
         Health {
             hp: 0,
             temp: 0,
-            modifiers: Vec::new()
+            modifiers: Vec::new(),
         }
     }
 }
@@ -87,7 +87,7 @@ impl Health {
 pub struct Effect {
     pub id: Uuid,
     pub duration: u128,
-    pub action: fn(&mut Health) -> ()
+    pub action: fn(&mut Health) -> (),
 }
 
 #[derive(Component)]

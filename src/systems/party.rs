@@ -1,10 +1,12 @@
 use std::collections::HashMap;
+
 use bevy::asset::AssetServer;
 use bevy::hierarchy::BuildChildren;
 use bevy::prelude::{Commands, default, Query, Res, SpatialBundle, SpriteBundle, Transform, With};
 use bevy::utils::Uuid;
+
 use crate::components::entity::{Character, Effect, Effects, Health, HealthModifier, PartyMember};
-use crate::components::movement::{Mass, MovementTarget, Speed};
+use crate::components::movement::{Mass, MovementTarget, Speed, TurnBasedMovement};
 use crate::components::resources::Resources;
 
 pub fn spawn_party(mut commands: Commands, asset_server: Res<AssetServer>) {
@@ -37,12 +39,17 @@ pub fn spawn_party(mut commands: Commands, asset_server: Res<AssetServer>) {
             MovementTarget {
                 x: initial_position.translation.x,
                 y: initial_position.translation.y,
+                active: false,
+            },
+            TurnBasedMovement {
+                base: 30.0 * 6.0,
+                accu: 0.0,
             },
             Mass(32.0),
             Speed {
                 x: 0.0,
                 y: 0.0,
-                base: 30.0
+                base: 30.0,
             },
             health,
             PartyMember,

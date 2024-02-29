@@ -1,8 +1,9 @@
-use bevy::prelude::{MouseButton, Res, ButtonInput, Query, With, Transform, OrthographicProjection};
+use bevy::prelude::{ButtonInput, MouseButton, OrthographicProjection, Query, Res, Transform, With};
 use bevy::render::camera::ScalingMode;
 use bevy::window::{PrimaryWindow, Window};
 use log::info;
 use rand::Rng;
+
 use crate::components::entity::{GatedCamera, PartyMember};
 use crate::components::movement::MovementTarget;
 
@@ -10,7 +11,7 @@ pub fn mouse_button_input(
     buttons: Res<ButtonInput<MouseButton>>,
     mut party: Query<&mut MovementTarget, With<PartyMember>>,
     window: Query<&Window, With<PrimaryWindow>>,
-    camera: Query<(&Transform, &OrthographicProjection), With<GatedCamera>>
+    camera: Query<(&Transform, &OrthographicProjection), With<GatedCamera>>,
 ) {
     let mut rng = rand::thread_rng();
     let window = window.single();
@@ -32,6 +33,7 @@ pub fn mouse_button_input(
                 let offset_y: f32 = rng.gen();
                 target.x = x + (offset_x - 0.5) * 32.0;
                 target.y = y + (offset_y - 0.5) * 32.0;
+                target.active = true;
             }
         }
     }
