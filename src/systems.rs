@@ -12,6 +12,7 @@ use crate::components::entity::{Character, Effect, Effects, Health, HealthModifi
 use crate::components::resources::Resources;
 
 pub mod camera;
+pub mod world;
 
 pub fn spawn_party(mut commands: Commands, asset_server: Res<AssetServer>) {
     for i in 0..4 {
