@@ -1,3 +1,4 @@
+use bevy::math::Vec3;
 use bevy::prelude::{Camera2dBundle, Commands, Query, Res, Transform, With, Without};
 use bevy::render::camera::ScalingMode;
 use bevy::time::Time;
@@ -18,21 +19,14 @@ pub fn setup_camera(mut commands: Commands) {
 }
 
 pub fn follow_cam(mut camera: Query<&mut Transform, (With<GatedCamera>, Without<PartyMember>)>, party: Query<&Transform, With<PartyMember>>, time: Res<Time>) {
-    let mut x= 0.0;
-    let mut y = 0.0;
-    for Transform { translation, rotation: _, scale: _} in &party {
-        x += translation.x;
-        y += translation.y;
-    }
     let party_count = party.iter().count();
-    x /= party_count as f32;
-    y /= party_count as f32;
+    let sum = party.iter().map(|x| x.translation).sum::<Vec3>();
+    let avg = sum / (party_count as f32);
+
     match camera.get_single_mut() {
         Ok(mut transform) => {
-            let x_diff = x - transform.translation.x;
-            let y_diff = y - transform.translation.y;
-            transform.translation.y += y_diff * time.delta_seconds() * 4.0;
-            transform.translation.x += x_diff * time.delta_seconds() * 4.0;
+            let diff = avg - transform.translation;
+            transform.translation += diff * time.delta_seconds() * 4.0;
         }
         Err(_) => {}
     }
