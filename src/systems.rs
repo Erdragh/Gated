@@ -86,7 +86,7 @@ pub fn apply_effects(mut query: Query<(&mut Health, &mut Effects, &mut Character
 
 pub fn gravity(mut query: Query<&mut Speed, (With<Mass>, With<Transform>)>, time: Res<Time>) {
     for mut speed in &mut query {
-        speed.y += -9.81 * time.delta_seconds();
+        //speed.y += -9.81 * time.delta_seconds();
     }
 }
 
