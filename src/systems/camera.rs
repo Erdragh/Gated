@@ -1,13 +1,13 @@
-use bevy::prelude::{Camera2dBundle, Commands, Transform};
-use bevy::utils::default;
+use bevy::prelude::{Camera2dBundle, Commands};
+use bevy::render::camera::ScalingMode;
+
 use crate::components::entity::GatedCamera;
 
 pub fn setup_camera(mut commands: Commands) {
+    let mut camera = Camera2dBundle::default();
+    camera.projection.scaling_mode = ScalingMode::FixedVertical(128.0);
     commands.spawn((
-        Camera2dBundle {
-            transform: Transform::from_xyz(100.0, 200.0, 0.0),
-            ..default()
-        },
+        camera,
         GatedCamera
     ));
 }

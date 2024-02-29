@@ -14,6 +14,15 @@ pub struct Character {
 #[derive(Component)]
 pub struct PartyMember;
 
+#[derive(Component)]
+pub struct Mass(pub f32);
+
+#[derive(Component)]
+pub struct Speed {
+    pub x: f32,
+    pub y: f32,
+}
+
 pub struct HealthModifier {
     pub id: Uuid,
     pub amount: u16
