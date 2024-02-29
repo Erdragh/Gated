@@ -8,6 +8,7 @@ edition = "2021"
 [dependencies]
 bevy = { version = "0.13.0", features = ["wayland"]}
 log = "0.4.20"
+luajit = "0.1.1"
 
 # Enable a small amount of optimization in debug mode
 [profile.dev]
