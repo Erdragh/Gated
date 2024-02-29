@@ -35,8 +35,8 @@ pub fn spawn_party(mut commands: Commands, asset_server: Res<AssetServer>) {
             },
             SpatialBundle::from_transform(initial_position),
             MovementTarget {
-                x: 0.0, //initial_position.translation.x,
-                y: 0.0, //initial_position.translation.y,
+                x: initial_position.translation.x,
+                y: initial_position.translation.y,
             },
             Mass(32.0),
             Speed {
