@@ -8,8 +8,8 @@ edition = "2021"
 [dependencies]
 bevy = { version = "0.13.0", features = ["wayland"]}
 log = "0.4.20"
-luajit = "0.1.1"
 rand = "0.9.0-alpha.0"
+mlua = { version = "0.9.6", features = ["luau", "macros", "serialize"]}
 
 # Enable a small amount of optimization in debug mode
 [profile.dev]

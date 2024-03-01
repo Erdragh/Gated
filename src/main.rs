@@ -1,5 +1,4 @@
-#[macro_use]
-extern crate luajit;
+use std::process::exit;
 
 use bevy::prelude::*;
 
@@ -21,7 +20,15 @@ fn main() {
     App::new()
         .add_plugins(DefaultPlugins.set(ImagePlugin::default_nearest()))
         .add_systems(Startup, (
-            test_lua,
+            || {
+                match test_lua() {
+                    Ok(_) => {}
+                    Err(x) => {
+                        error!("{}", x);
+                        exit(1);
+                    }
+                }
+            },
             spawn_party,
             setup_world,
             heal_party.after(spawn_party),
