@@ -1,5 +1,6 @@
 use std::any::Any;
 use std::error::Error;
+use std::fs::File;
 use std::process::exit;
 use std::string::FromUtf8Error;
 use std::sync::{LockResult, MutexGuard, PoisonError};
@@ -10,7 +11,7 @@ use bevy::{
     reflect::TypePath,
     utils::BoxedFuture,
 };
-use bevy::asset::Assets;
+use bevy::asset::{AssetPath, Assets};
 use bevy::prelude::{Query, Res};
 use bevy::utils::thiserror;
 use log::error;
@@ -40,7 +41,7 @@ fn run_entity_script(script: &LuaScript, runtime: &LuaRuntime) -> Result<(), Lua
         }
     };
     guard.globals().set("entity", 1)?;
-    guard.load(&script.0).exec()?;
+    guard.load(script).exec()?;
     guard.globals().set("entity", LuaNil)?;
     Ok(())
 }
