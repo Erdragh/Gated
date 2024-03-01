@@ -1,9 +1,9 @@
-use mlua::prelude::*;
+use std::sync::{Arc, Mutex};
+use bevy::prelude::Commands;
 
-pub fn test_lua() -> LuaResult<()> {
-    let lua = Lua::new();
+use mlua::Lua;
+use crate::resources::LuaRuntime;
 
-    lua.load("print(\"Hello World!\")").exec()?;
-
-    Ok(())
+pub fn setup_lua_runtime(mut commands: Commands) {
+    commands.insert_resource(LuaRuntime(Arc::new(Mutex::new(Lua::new()))))
 }

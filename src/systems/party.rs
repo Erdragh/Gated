@@ -4,8 +4,10 @@ use bevy::asset::AssetServer;
 use bevy::hierarchy::BuildChildren;
 use bevy::prelude::{Commands, default, Query, Res, SpatialBundle, SpriteBundle, Transform, With};
 use bevy::utils::Uuid;
+use mlua::Lua;
 
 use crate::components::entity::{Character, Effect, Effects, Health, HealthModifier, PartyMember};
+use crate::components::lua::Scriptable;
 use crate::components::movement::{Mass, MovementTarget, Speed, TurnBasedMovement};
 use crate::components::resources::Resources;
 
@@ -50,6 +52,12 @@ pub fn spawn_party(mut commands: Commands, asset_server: Res<AssetServer>) {
                 x: 0.0,
                 y: 0.0,
                 base: 30.0,
+            },
+            Scriptable {
+                tick_script: Some(asset_server.load("scripts/player_tick.lua")),
+                destroy_script: None,
+                init_script: None,
+                initialized: false,
             },
             health,
             PartyMember,

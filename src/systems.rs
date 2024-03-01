@@ -8,6 +8,7 @@ pub mod party;
 pub mod movement;
 pub mod input;
 pub mod turn;
+pub mod lua;
 
 pub fn apply_effects(mut query: Query<(&mut Health, &mut Effects, &mut Character)>) {
     for (mut health, effects, character) in query.iter_mut() {

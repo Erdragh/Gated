@@ -1777,7 +1777,9 @@ dependencies = [
  "bevy",
  "log",
  "mlua",
+ "once_cell",
  "rand",
+ "serde",
 ]
 
 [[package]]
@@ -2399,6 +2401,7 @@ dependencies = [
  "mlua_derive",
  "num-traits",
  "once_cell",
+ "parking_lot",
  "rustc-hash",
  "serde",
  "serde-value",
