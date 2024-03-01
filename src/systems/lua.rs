@@ -1,5 +1,6 @@
 use std::any::Any;
 use std::error::Error;
+use std::process::exit;
 use std::string::FromUtf8Error;
 use std::sync::{LockResult, MutexGuard, PoisonError};
 
@@ -51,6 +52,7 @@ pub fn tick_scriptables(scriptables: Query<&Scriptable>, loaded_scripts: Res<Ass
                 match run_entity_script(loaded_script, &runtime) {
                     Err(error) => {
                         error!("Failed to tick entity: {}", error);
+                        exit(1);
                     }
                     _ => {}
                 }
