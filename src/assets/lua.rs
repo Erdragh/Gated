@@ -33,10 +33,10 @@ impl AssetLoader for LuaScriptLoader {
         &'a self,
         reader: &'a mut Reader,
         _settings: &'a (),
-        _load_context: &'a mut LoadContext
+        load_context: &'a mut LoadContext
     ) -> BoxedFuture<'a, Result<Self::Asset, Self::Error>> {
         Box::pin(async move {
-            info!("Loading Script...");
+            info!("Loading Script {:?}", load_context.path());
             let mut bytes = Vec::new();
             reader.read_to_end(&mut bytes).await?;
             Ok(LuaScript(String::from_utf8(bytes)?))

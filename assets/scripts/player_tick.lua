@@ -1,1 +1,3 @@
-print("Player tick")
+print(entity)
+
+entity = 2
