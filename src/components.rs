@@ -1,4 +1,6 @@
-pub mod resources;
 pub mod entity;
-pub mod movement;
 pub mod lua;
+pub mod movement;
+pub mod resources;
+pub mod ui;
+

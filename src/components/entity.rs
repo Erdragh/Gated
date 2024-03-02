@@ -1,5 +1,6 @@
-use std::fmt::{Display, Formatter, Pointer};
+use std::fmt::{Display, Formatter};
 
+use bevy::ecs::entity::Entity;
 use bevy::prelude::Component;
 use bevy::utils::Uuid;
 
@@ -13,6 +14,12 @@ pub struct Character {
 
 #[derive(Component)]
 pub struct PartyMember;
+
+#[derive(Component)]
+pub struct PartyList {
+    pub list: Vec<Entity>,
+    pub active: Option<Entity>,
+}
 
 pub struct HealthModifier {
     pub id: Uuid,
@@ -28,7 +35,13 @@ pub struct Health {
 
 impl Display for Health {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        write!(f, "Health: ({} + {})/{}", self.hp, self.temp, self.get_max())
+        write!(
+            f,
+            "Health: ({} + {})/{}",
+            self.hp,
+            self.temp,
+            self.get_max()
+        )
     }
 }
 
@@ -95,3 +108,4 @@ pub struct Effects(pub Vec<Effect>);
 
 #[derive(Component)]
 pub struct GatedCamera;
+
