@@ -7,12 +7,10 @@ use bevy::{
         system::{Commands, Query, ResMut, Resource},
     },
     math::Vec3Swizzles,
-    render::view::Visibility,
     transform::components::GlobalTransform,
     ui::{Interaction, Node},
     window::{PrimaryWindow, Window},
 };
-use log::info;
 
 #[derive(Resource)]
 pub struct IsPointerCaptured(pub bool);
