@@ -6,13 +6,19 @@ use rand::Rng;
 
 use crate::components::entity::{GatedCamera, PartyMember};
 use crate::components::movement::MovementTarget;
+use crate::cursor::IsPointerCaptured;
 
 pub fn mouse_button_input(
     buttons: Res<ButtonInput<MouseButton>>,
     mut party: Query<&mut MovementTarget, With<PartyMember>>,
     window: Query<&Window, With<PrimaryWindow>>,
     camera: Query<(&Transform, &OrthographicProjection), With<GatedCamera>>,
+    ui_input: Res<IsPointerCaptured>
 ) {
+    if ui_input.0 {
+        return;
+    }
+
     let mut rng = rand::thread_rng();
     let window = window.single();
     let (position, projection) = camera.single();

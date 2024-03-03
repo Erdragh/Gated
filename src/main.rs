@@ -1,4 +1,5 @@
 use bevy::prelude::*;
+use cursor::{is_pointer_captured_system, setup_pointer_capture};
 use systems::party::update_party_lists;
 use systems::ui::party::{party_ui, setup_party_ui, update_party_ui_members};
 
@@ -18,6 +19,7 @@ mod components;
 mod lua;
 mod resources;
 mod systems;
+mod cursor;
 
 fn main() {
     App::new()
@@ -34,6 +36,7 @@ fn main() {
                 apply_poison.after(spawn_party).after(heal_party),
                 setup_camera,
                 setup_party_ui,
+                setup_pointer_capture
             ),
         )
         .add_systems(
@@ -49,6 +52,7 @@ fn main() {
                 party_ui,
                 update_party_ui_members,
                 update_party_lists,
+                is_pointer_captured_system
             ),
         )
         .run();

@@ -97,7 +97,7 @@ pub fn apply_poison(mut query: Query<&mut Effects>) {
 pub fn update_party_lists(
     mut party_lists: Query<&mut PartyList>,
     new_party_members: Query<Entity, Added<PartyMember>>,
-    mut removed_party_members: RemovedComponents<PartyMember>
+    mut removed_party_members: RemovedComponents<PartyMember>,
 ) {
     for mut list in &mut party_lists {
         for member in &new_party_members {
@@ -107,9 +107,13 @@ pub fn update_party_lists(
             list.list = new_list;
         }
         for member in removed_party_members.read() {
-            let new_list: Vec<Entity> = list.list.iter().filter(|entity| **entity == member).map(|x| *x).collect();
+            let new_list: Vec<Entity> = list
+                .list
+                .iter()
+                .filter(|entity| **entity == member)
+                .map(|x| *x)
+                .collect();
             list.list = new_list;
         }
     }
 }
-
