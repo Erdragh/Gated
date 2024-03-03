@@ -4,9 +4,8 @@ use bevy::asset::AssetServer;
 use bevy::ecs::entity::Entity;
 use bevy::ecs::query::Added;
 use bevy::hierarchy::BuildChildren;
-use bevy::prelude::{default, Commands, Query, Res, SpatialBundle, SpriteBundle, Transform, With};
+use bevy::prelude::*;
 use bevy::utils::Uuid;
-use mlua::Lua;
 
 use crate::components::entity::{
     Character, Effect, Effects, Health, HealthModifier, PartyList, PartyMember,
@@ -98,12 +97,17 @@ pub fn apply_poison(mut query: Query<&mut Effects>) {
 pub fn update_party_lists(
     mut party_lists: Query<&mut PartyList>,
     new_party_members: Query<Entity, Added<PartyMember>>,
+    mut removed_party_members: RemovedComponents<PartyMember>
 ) {
     for mut list in &mut party_lists {
         for member in &new_party_members {
             let mut new_list = Vec::new();
             new_list.push(member);
             new_list.append(&mut list.list);
+            list.list = new_list;
+        }
+        for member in removed_party_members.read() {
+            let new_list: Vec<Entity> = list.list.iter().filter(|entity| **entity == member).map(|x| *x).collect();
             list.list = new_list;
         }
     }
